@@ -1,0 +1,7 @@
+{
+    "cache_dir": ".cache",
+    "model_name": "Helsinki-NLP/opus-mt-en-uk",
+    "device": "cuda",
+    "batch_size": 16,
+    "output_dir": "output"
+}
