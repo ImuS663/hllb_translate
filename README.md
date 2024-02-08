@@ -1,1 +1,34 @@
 # hllb_translate
+
+hllb_translate is a set command-line tools that allows you to quickly and efficiently translate text files and specific columns within CSV files using pre-trained machine translation models. This project leverages the power of Hugging Face Transformers.
+
+## Key Features:
+
+- **Supports diverse file formats:** Translate both plain text files and CSV files with ease.
+- **Target multiple languages:** Choose from a range of supported languages for your translation needs.
+- **Configurable settings:** Customize the translation process through a JSON configuration file.
+- **Command-line interface:** Simple and intuitive command-line interface for easy use.
+- **Progress visualization:** Track the translation progress with a visual indicator.
+
+## Getting Started:
+
+1. Install dependencies: `pip install transformers tqdm`
+2. Configure `config.json` with your desired settings (model name, languages, etc.).
+3. Run the script with appropriate arguments:
+
+```sh
+python translate_text_file.py input_file.txt source_lang_code target_lang_code
+```
+or
+
+```sh
+python translate_csv_file.py input_file.csv column_number source_lang_code target_lang_code
+```
+
+## License:
+
+hllb_translate is licensed under the MIT License: `LICENSE`.
+
+## Other 
+
+This text is the result of a collaboration between a human and a machine learning model.
