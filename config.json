@@ -1,6 +1,6 @@
 {
     "cache_dir": ".cache",
-    "model_name": "Helsinki-NLP/opus-mt-en-uk",
+    "model_name": "facebook/nllb-200-distilled-600M",
     "device": "cuda",
     "batch_size": 16,
     "output_dir": "output"
