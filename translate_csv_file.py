@@ -44,11 +44,13 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name, cache_dir=cache_dir)
 
-    translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang, tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
+    translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang,
+                          tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
 
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
         writer = csv.writer(file, lineterminator='\n')
-        for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)), desc='Translate: ' + file_path, total=file_count(file_path), unit='row'):
+        for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)),
+                                       desc='Translate: ' + file_path, total=file_count(file_path), unit='row'):
             row[column_number] = result[0]['translation_text']
             writer.writerow(row)
 

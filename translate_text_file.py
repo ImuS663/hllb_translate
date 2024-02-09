@@ -38,10 +38,12 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name, cache_dir=cache_dir)
 
-    translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang, tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
+    translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang,
+                          tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
 
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
-        for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path, total=file_count(file_path), unit='row'):
+        for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path,
+                                total=file_count(file_path), unit='row'):
             file.write(result[0]['translation_text'] + '\n')
 
 
