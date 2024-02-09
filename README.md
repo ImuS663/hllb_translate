@@ -17,7 +17,28 @@ hllb_translate is a set command-line tools that allows you to quickly and effici
 3. Run the script with appropriate arguments:
    1. Translate text file: `python translate_text_file.py input_file.txt source_lang_code target_lang_code`
    2. Translate CSV file: `python translate_csv_file.py input_file.csv column_number source_lang_code target_lang_code`
-   3. Translate text: `python translate_text.py source_lang_code target_lang_code` 
+   3. Translate text: `python translate_text.py source_lang_code target_lang_code`
+
+### Config:
+
+```json
+{
+    "cache_dir": ".cache", 
+    "model_name": "facebook/nllb-200-distilled-600M",
+    "device": "cuda",
+    "batch_size": 16,
+    "output_dir": "output"
+}
+```
+`cache_dir`: any directory witch sufficient empty space;
+
+`model_name`: any translate model with [Hugging Face](https://huggingface.co/models?other=translation);
+
+`device`: `cpu` or `cuda`;
+
+`batch_size`: up speed translate at the expense of batched text, requires additional RAM and GPU memory;
+
+`output_dir`: any convenient directory.
 
 ## License:
 
