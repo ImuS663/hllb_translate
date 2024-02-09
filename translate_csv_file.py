@@ -17,7 +17,7 @@ def read(file_name: str):
         yield row
 
 
-def file_cound(file_name: str):
+def file_count(file_name: str):
     with open(file_name, 'r') as file:
         num_lines = sum(1 for _ in csv.reader(file))
     return num_lines
@@ -48,7 +48,7 @@ def main():
 
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
         writer = csv.writer(file, lineterminator='\n')
-        for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)), desc='Translate: ' + file_path, total=file_cound(file_path), unit='row'):
+        for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)), desc='Translate: ' + file_path, total=file_count(file_path), unit='row'):
             row[column_number] = result[0]['translation_text']
             writer.writerow(row)
 

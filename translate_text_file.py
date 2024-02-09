@@ -11,7 +11,7 @@ def read(file_name: str):
         yield row
 
 
-def file_cound(file_name: str):
+def file_count(file_name: str):
     with open(file_name, 'rb') as file:
         num_lines = sum(1 for _ in file)
     return num_lines
@@ -41,7 +41,7 @@ def main():
     translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang, tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
 
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
-        for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path, total=file_cound(file_path), unit='row'):
+        for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path, total=file_count(file_path), unit='row'):
             file.write(result[0]['translation_text'] + '\n')
 
 
