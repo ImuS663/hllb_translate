@@ -6,18 +6,22 @@ import csv
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline, Pipeline
 from pathlib import Path
 
+
 def read_col(file_name: str, column_number: int):
     for row in csv.reader(open(file_name, 'r', encoding='utf8')):
         yield row[column_number]
+
 
 def read(file_name: str):
     for row in csv.reader(open(file_name, 'r', encoding='utf8')):
         yield row
 
+
 def file_cound(file_name: str):
     with open(file_name, 'r') as file:
         num_lines = sum(1 for _ in csv.reader(file))
     return num_lines
+
 
 def main():
     with open('config.json') as config_file:
@@ -47,6 +51,7 @@ def main():
         for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)), desc='Translate: ' + file_path, total=file_cound(file_path), unit='row'):
             row[column_number] = result[0]['translation_text']
             writer.writerow(row)
+
 
 if __name__ == '__main__':
     sys.exit(main())

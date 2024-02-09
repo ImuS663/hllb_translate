@@ -10,10 +10,12 @@ def read(file_name: str):
     for row in open(file_name, 'r', encoding='utf8'):
         yield row
 
+
 def file_cound(file_name: str):
     with open(file_name, 'rb') as file:
         num_lines = sum(1 for _ in file)
     return num_lines
+
 
 def main():
 
@@ -41,6 +43,7 @@ def main():
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
         for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path, total=file_cound(file_path), unit='row'):
             file.write(result[0]['translation_text'] + '\n')
+
 
 if __name__ == '__main__':
     sys.exit(main())
