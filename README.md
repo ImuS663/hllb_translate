@@ -13,7 +13,7 @@ hllb_translate is a set command-line tools that allows you to quickly and effici
 ## Getting Started:
 
 1. Install dependencies: `pip install transformers tqdm`
-2. Configure `config.json` with your desired settings (model name, languages, etc.).
+2. Configure `config.json` with your desired settings (model name, batch dir, outpuut dir, etc.).
 3. Run the script with appropriate arguments:
    1. Translate text file: `python translate_text_file.py input_file.txt source_lang_code target_lang_code`
    2. Translate CSV file: `python translate_csv_file.py input_file.csv column_number source_lang_code target_lang_code`
