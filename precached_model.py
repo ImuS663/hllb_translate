@@ -1,9 +1,7 @@
 import json
 import sys
-import tqdm
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from huggingface_hub import try_to_load_from_cache
 
 
 def main():
