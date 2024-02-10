@@ -30,6 +30,12 @@ def main():
         if text == 'exit()':
             is_exit = True
             print('Exit!')
+        elif text == 'change_lang()':
+            source_lang = input('Enter source: ')
+            target_lang = input('Enter target: ')
+
+            translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang,
+                                  tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
         else:
             result = translator(text)[0]['translation_text']
             print(result)
