@@ -19,13 +19,13 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name, cache_dir=cache_dir)
 
-    translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang,
+    translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
                           tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
 
     is_exit = False
 
     while not is_exit:
-        text = input("Enter text: ")
+        text = input('Enter text: ')
 
         if text == 'exit()':
             is_exit = True
@@ -34,7 +34,7 @@ def main():
             source_lang = input('Enter source: ')
             target_lang = input('Enter target: ')
 
-            translator = pipeline("translation", model=model, tokenizer=tokenizer, src_lang=source_lang,
+            translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
                                   tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
         else:
             result = translator(text)[0]['translation_text']
