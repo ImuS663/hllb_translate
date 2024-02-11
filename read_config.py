@@ -17,7 +17,7 @@ class Config:
 
 
 def read(path: str) -> Config:
-    with open('config.json') as config_file:
+    with open(path) as config_file:
         data = json.load(config_file)
 
     return Config(data['cache_dir'], data['model_name'], data['device'], data['batch_size'], data['output_dir'])
