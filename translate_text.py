@@ -3,24 +3,20 @@ import sys
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 
+import read_config
+
 
 def main():
-    with open('config.json') as config_file:
-        data = json.load(config_file)
-
     source_lang = sys.argv[1]
     target_lang = sys.argv[2]
 
-    cache_dir = data['cache_dir']
-    model_name = data['model_name']
-    device = data['device']
-    batch_size = data['batch_size']
+    config = read_config.read('config.json')
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name, cache_dir=cache_dir)
+    tokenizer = AutoTokenizer.from_pretrained(config.model_name, cache_dir=config.cache_dir)
+    model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name, cache_dir=config.cache_dir)
 
     translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
-                          tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
+                          tgt_lang=target_lang, max_length=400, device=config.device, batch_size=config.batch_size)
 
     is_exit = False
 
@@ -35,7 +31,8 @@ def main():
             target_lang = input('Enter target: ')
 
             translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
-                                  tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
+                                  tgt_lang=target_lang, max_length=400, device=config.device,
+                                  batch_size=config.batch_size)
         else:
             result = translator(text)[0]['translation_text']
             print(result)

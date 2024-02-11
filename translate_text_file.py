@@ -1,6 +1,6 @@
-import json
 import tqdm
 import sys
+import read_config
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 from pathlib import Path
@@ -18,28 +18,20 @@ def file_count(file_name: str):
 
 
 def main():
-
-    with open('config.json') as config_file:
-        data = json.load(config_file)
-
     file_path = sys.argv[1]
     source_lang = sys.argv[2]
     target_lang = sys.argv[3]
 
-    cache_dir = data['cache_dir']
-    model_name = data['model_name']
-    device = data['device']
-    batch_size = data['batch_size']
-    output_dir = data['output_dir']
+    config = read_config.read('config.json')
 
-    output_path = Path(output_dir)
+    output_path = Path(config.output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name, cache_dir=cache_dir)
+    tokenizer = AutoTokenizer.from_pretrained(config.model_name, cache_dir=config.cache_dir)
+    model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name, cache_dir=config.cache_dir)
 
     translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
-                          tgt_lang=target_lang, max_length=400, device=device, batch_size=batch_size)
+                          tgt_lang=target_lang, max_length=400, device=config.device, batch_size=config.batch_size)
 
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
         for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path,
