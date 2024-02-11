@@ -1,8 +1,8 @@
 import tqdm
 import sys
 import read_config
+import transformer
 
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 from pathlib import Path
 
 
@@ -27,11 +27,9 @@ def main():
     output_path = Path(config.output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
-    tokenizer = AutoTokenizer.from_pretrained(config.model_name, cache_dir=config.cache_dir)
-    model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name, cache_dir=config.cache_dir)
+    tokenizer, model = transformer.load_model(config)
 
-    translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
-                          tgt_lang=target_lang, max_length=400, device=config.device, batch_size=config.batch_size)
+    translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
 
     with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
         for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path,

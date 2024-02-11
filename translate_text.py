@@ -1,9 +1,6 @@
-import json
 import sys
-
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
-
 import read_config
+import transformer
 
 
 def main():
@@ -12,11 +9,9 @@ def main():
 
     config = read_config.read('config.json')
 
-    tokenizer = AutoTokenizer.from_pretrained(config.model_name, cache_dir=config.cache_dir)
-    model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name, cache_dir=config.cache_dir)
+    tokenizer, model = transformer.load_model(config)
 
-    translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
-                          tgt_lang=target_lang, max_length=400, device=config.device, batch_size=config.batch_size)
+    translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
 
     is_exit = False
 
@@ -30,9 +25,7 @@ def main():
             source_lang = input('Enter source: ')
             target_lang = input('Enter target: ')
 
-            translator = pipeline('translation', model=model, tokenizer=tokenizer, src_lang=source_lang,
-                                  tgt_lang=target_lang, max_length=400, device=config.device,
-                                  batch_size=config.batch_size)
+            translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
         else:
             result = translator(text)[0]['translation_text']
             print(result)

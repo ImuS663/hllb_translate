@@ -1,7 +1,6 @@
 import sys
 import read_config
-
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import transformer
 
 
 def main():
@@ -11,8 +10,7 @@ def main():
     
     print('Start load:', model_name)
 
-    AutoTokenizer.from_pretrained(model_name, cache_dir=config.cache_dir)
-    AutoModelForSeq2SeqLM.from_pretrained(model_name, cache_dir=config.cache_dir)
+    transformer.load_model(config)
 
     input('Load completed, press any key...')
 
