@@ -30,6 +30,8 @@ def file_count(file_name: str):
 @click.argument('source_lang', type=str)
 @click.argument('target_lang', type=str)
 def main(file_path, column_number, source_lang, target_lang):
+    column_number -= 1
+
     config = read_config.read('config.json')
 
     output_path = Path(config.output_dir)
