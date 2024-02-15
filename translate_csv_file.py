@@ -1,6 +1,7 @@
 import tqdm
 import sys
 import csv
+import click
 import read_config
 import transformer
 
@@ -23,12 +24,12 @@ def file_count(file_name: str):
     return num_lines
 
 
-def main():
-    file_path = sys.argv[1]
-    column_number = int(sys.argv[2])
-    source_lang = sys.argv[3]
-    target_lang = sys.argv[4]
-
+@click.command()
+@click.argument('file_path', type=str)
+@click.argument('column_number', type=int)
+@click.argument('source_lang', type=str)
+@click.argument('target_lang', type=str)
+def main(file_path, column_number, source_lang, target_lang):
     config = read_config.read('config.json')
 
     output_path = Path(config.output_dir)

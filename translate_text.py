@@ -1,11 +1,13 @@
 import sys
+import click
 import read_config
 import transformer
 
 
-def main():
-    source_lang = sys.argv[1]
-    target_lang = sys.argv[2]
+@click.command()
+@click.argument('source_lang', type=str)
+@click.argument('target_lang', type=str)
+def main(source_lang, target_lang):
 
     config = read_config.read('config.json')
 
