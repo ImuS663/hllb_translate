@@ -25,7 +25,7 @@ def file_count(file_name: str):
 
 
 @click.command()
-@click.argument('file_path', type=str)
+@click.argument('file_path', type=Path)
 @click.argument('column_number', type=int)
 @click.argument('source_lang', type=str)
 @click.argument('target_lang', type=str)
@@ -41,7 +41,7 @@ def main(file_path, column_number, source_lang, target_lang):
 
     translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
 
-    with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
+    with open(Path('output', file_path.name), 'w', encoding='utf8') as file:
         writer = csv.writer(file, lineterminator='\n')
         for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)),
                                        desc='Translate: ' + file_path, total=file_count(file_path), unit='row'):

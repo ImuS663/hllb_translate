@@ -19,7 +19,7 @@ def file_count(file_name: str):
 
 
 @click.command()
-@click.argument('file_path', type=str)
+@click.argument('file_path', type=Path)
 @click.argument('source_lang', type=str)
 @click.argument('target_lang', type=str)
 def main(file_path, source_lang, target_lang):
@@ -32,7 +32,7 @@ def main(file_path, source_lang, target_lang):
 
     translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
 
-    with open(Path('output', Path(file_path).name), 'w', encoding='utf8') as file:
+    with open(Path('output', file_path.name), 'w', encoding='utf8') as file:
         for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path,
                                 total=file_count(file_path), unit='row'):
             file.write(result[0]['translation_text'] + '\n')
