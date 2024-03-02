@@ -9,8 +9,8 @@ from pathlib import Path
 @click.argument('source_lang', type=str)
 @click.argument('target_lang', type=str)
 @click.option('-c', '--cache-dir', type=Path, default=Path('.cache'), show_default=True, help='Change cache dir')
-@click.option('-d', '--device', type=click.Choice(['CPU', 'CUDA'], case_sensitive=False),
-              default='CPU', show_default=True, help='Choose device.')
+@click.option('-d', '--device', type=click.Choice(['cpu', 'cuda'], case_sensitive=False),
+              default='cpu', show_default=True, help='Choose device.')
 def main(source_lang, target_lang, cache_dir, device):
 
     tokenizer, model = transformer.load_model(cache_dir)
