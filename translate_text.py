@@ -1,19 +1,21 @@
 import sys
 import click
-import read_config
 import transformer
+
+from pathlib import Path
 
 
 @click.command()
 @click.argument('source_lang', type=str)
 @click.argument('target_lang', type=str)
-def main(source_lang, target_lang):
+@click.option('-c', '--cache-dir', type=Path, default=Path('.cache'), show_default=True, help='Change cache dir')
+@click.option('-d', '--device', type=click.Choice(['CPU', 'CUDA'], case_sensitive=False),
+              default='CPU', show_default=True, help='Choose device.')
+def main(source_lang, target_lang, cache_dir, device):
 
-    config = read_config.read('config.json')
+    tokenizer, model = transformer.load_model(cache_dir)
 
-    tokenizer, model = transformer.load_model(config)
-
-    translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
+    translator = transformer.pipe(tokenizer, model, source_lang, target_lang, 6, device)
 
     is_exit = False
 
@@ -27,7 +29,7 @@ def main(source_lang, target_lang):
             source_lang = input('Enter source: ')
             target_lang = input('Enter target: ')
 
-            translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
+            translator = transformer.pipe(tokenizer, model, source_lang, target_lang, 6, device)
         else:
             result = translator(text)[0]['translation_text']
             print(result)

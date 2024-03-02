@@ -1,16 +1,18 @@
 import sys
-import read_config
+import click
 import transformer
 
+from pathlib import Path
 
-def main():
+
+@click.command()
+@click.option('-c', '--cache-dir', type=Path, default=Path('.cache'), show_default=True, help='Change cache dir')
+def main(cache_dir):
     model_name = sys.argv[1]
-
-    config = read_config.read('config.json')
     
     print('Start load:', model_name)
 
-    transformer.load_model(config)
+    transformer.load_model(cache_dir)
 
     input('Load completed, press any key...')
 

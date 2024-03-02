@@ -2,7 +2,6 @@ import tqdm
 import sys
 import csv
 import click
-import read_config
 import transformer
 
 from pathlib import Path
@@ -29,17 +28,20 @@ def file_count(file_name: str):
 @click.argument('column_number', type=int)
 @click.argument('source_lang', type=str)
 @click.argument('target_lang', type=str)
-def main(file_path, column_number, source_lang, target_lang):
+@click.option('-b', '--batch-size', type=int, default=6, show_default=True, help='Change batch size.')
+@click.option('-c', '--cache-dir', type=Path, default=Path('.cache'), show_default=True, help='Change cache dir')
+@click.option('-d', '--device', type=click.Choice(['cpu', 'cuda'], case_sensitive=False),
+              default='cpu', show_default=True, help='Choose device.')
+@click.option('-o', '--output-dir', type=Path, default=Path('output'), show_default=True, help='Change output dir')
+def main(file_path, column_number, source_lang, target_lang, batch_size, cache_dir, device, output_dir):
+
     column_number -= 1
 
-    config = read_config.read('config.json')
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_path = Path(config.output_dir)
-    output_path.mkdir(parents=True, exist_ok=True)
+    tokenizer, model = transformer.load_model(cache_dir)
 
-    tokenizer, model = transformer.load_model(config)
-
-    translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
+    translator = transformer.pipe(tokenizer, model, source_lang, target_lang, batch_size, device)
 
     with open(Path('output', file_path.name), 'w', encoding='utf8') as file:
         writer = csv.writer(file, lineterminator='\n')
