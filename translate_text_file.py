@@ -33,7 +33,7 @@ def main(file_path, source_lang, target_lang):
     translator = transformer.pipe(tokenizer, model, config, source_lang, target_lang)
 
     with open(Path('output', file_path.name), 'w', encoding='utf8') as file:
-        for result in tqdm.tqdm(translator(read(file_path)), desc='Translate: ' + file_path,
+        for result in tqdm.tqdm(translator(read(file_path)), desc=f'Translate: {file_path}',
                                 total=file_count(file_path), unit='row'):
             file.write(result[0]['translation_text'] + '\n')
 
