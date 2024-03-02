@@ -34,7 +34,7 @@ def main(file_path, source_lang, target_lang, batch_size, cache_dir, device, out
 
     translator = transformer.pipe(tokenizer, model, source_lang, target_lang, batch_size, device)
 
-    with open(Path('output', file_path.name), 'w', encoding='utf8') as file:
+    with open(output_dir / file_path.name, 'w', encoding='utf8') as file:
         for result in tqdm.tqdm(translator(read(file_path)), desc=f'Translate: {file_path}',
                                 total=file_count(file_path), unit='row'):
             file.write(result[0]['translation_text'] + '\n')

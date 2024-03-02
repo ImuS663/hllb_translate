@@ -43,7 +43,7 @@ def main(file_path, column_number, source_lang, target_lang, batch_size, cache_d
 
     translator = transformer.pipe(tokenizer, model, source_lang, target_lang, batch_size, device)
 
-    with open(Path('output', file_path.name), 'w', encoding='utf8') as file:
+    with open(output_dir / file_path.name, 'w', encoding='utf8') as file:
         writer = csv.writer(file, lineterminator='\n')
         for (result, row) in tqdm.tqdm(zip(translator(read_col(file_path, column_number)), read(file_path)),
                                        desc=f'Translate: {file_path}', total=file_count(file_path), unit='row'):
