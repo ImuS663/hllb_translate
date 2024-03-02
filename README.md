@@ -17,6 +17,46 @@ hllb_translate is a set command-line tools that allows you to quickly and effici
    2. Translate CSV file: `python translate_csv_file.py input_file.csv column_number source_lang_code target_lang_code`
    3. Translate text: `python translate_text.py source_lang_code target_lang_code`
 
+## Help
+
+### translate_text_file:
+
+```bash
+Usage: translate_csv_file.py [OPTIONS] FILE_PATH COLUMN_NUMBER SOURCE_LANG
+                             TARGET_LANG
+
+Options:
+  -b, --batch-size INTEGER  Change batch size.  [default: 6]
+  -c, --cache-dir PATH      Change cache dir  [default: .cache]
+  -d, --device [cpu|cuda]   Choose device.  [default: cpu]
+  -o, --output-dir PATH     Change output dir  [default: output]
+  --help                    Show this message and exit.
+```
+
+### translate_text_file:
+
+```bash
+Usage: translate_text_file.py [OPTIONS] FILE_PATH SOURCE_LANG TARGET_LANG
+
+Options:
+  -b, --batch-size INTEGER  Change batch size.  [default: 6]
+  -c, --cache-dir PATH      Change cache dir  [default: .cache]
+  -d, --device [cpu|cuda]   Choose device.  [default: cpu]
+  -o, --output-dir PATH     Change output dir  [default: output]
+  --help                    Show this message and exit.
+```
+
+### translate_text_file:
+
+```bash
+Usage: translate_text.py [OPTIONS] SOURCE_LANG TARGET_LANG
+
+Options:
+  -c, --cache-dir PATH     Change cache dir  [default: .cache]
+  -d, --device [cpu|cuda]  Choose device.  [default: cpu]
+  --help                   Show this message and exit.
+```
+
 ## License:
 
 hllb_translate is licensed under the MIT License: `LICENSE`.
