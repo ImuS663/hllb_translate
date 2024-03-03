@@ -15,6 +15,6 @@ def pipe(tokenizer: PreTrainedTokenizerFast, model, source_lang: str, target_lan
          batch_size: int, device: str) -> Pipeline:
     translator = pipeline('translation', model, tokenizer=tokenizer, src_lang=source_lang,
                           tgt_lang=target_lang, max_length=400, batch_size=batch_size,
-                          device='cuda' if device == 'cuda' and cuda.is_available() else 'cpu')
+                          device='cuda' if device.lower() == 'cuda' and cuda.is_available() else 'cpu')
 
     return translator
