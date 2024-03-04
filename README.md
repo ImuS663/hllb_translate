@@ -68,8 +68,6 @@ Options:
   --help           Show this message and exit.
 ```
 
-### translate txt:
-
 ### translate text:
 
 ```bash
@@ -86,6 +84,8 @@ Options:
   -d, --device [CPU|CUDA]  Choose device.  [default: CPU]
   --help                   Show this message and exit.
 ```
+
+### translate txt:
 
 ```bash
 Usage: translate.py txt [OPTIONS] FILENAME SOURCE TARGET
