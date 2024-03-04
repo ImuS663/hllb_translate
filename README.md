@@ -1,6 +1,6 @@
 # hllb_translate
 
-hllb_translate is a set command-line tools that allows you to quickly and efficiently translate text files and specific columns within CSV files using pre-trained machine translation models. This project leverages the power of Hugging Face Transformers.
+hllb_translate is a set command-line tool that allows you to quickly and efficiently translate text files and specific columns within CSV files using pre-trained machine translation models. This project leverages the power of Hugging Face Transformers.
 
 ## Key Features:
 
@@ -11,50 +11,99 @@ hllb_translate is a set command-line tools that allows you to quickly and effici
 
 ## Getting Started:
 
-1. Install dependencies: `pip install transformers tqdm`
-2. Run the script with appropriate arguments:
-   1. Translate text file: `python translate_text_file.py input_file.txt source_lang_code target_lang_code`
-   2. Translate CSV file: `python translate_csv_file.py input_file.csv column_number source_lang_code target_lang_code`
-   3. Translate text: `python translate_text.py source_lang_code target_lang_code`
+1. Install dependencies: `pip install transformers torch tqdm click`
+2. Run the script with appropriate arguments: `py translate.py [OPTIONS] COMMAND [ARGS]...`
 
 ## Help
 
-### translate_text_file:
+### translate:
 
 ```bash
-Usage: translate_csv_file.py [OPTIONS] FILE_PATH COLUMN_NUMBER SOURCE_LANG
-                             TARGET_LANG
+Usage: translate.py [OPTIONS] COMMAND [ARGS]...
+
+  Translate CLI
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  csv    Translate csv file.
+  langs  Print all supported languages.
+  text   Translate string.
+  txt    Translate txt file.
+  ```
+
+### translate csv :
+
+```bash
+Usage: translate.py csv [OPTIONS] FILENAME COLUMN SOURCE TARGET
+
+  Translate csv file.
+
+  FILENAME is the path to target file.
+
+  COLUMN is the number to target column.
+
+  SOURCE is the Source Language
+
+  TARGET is the Target Language
 
 Options:
   -b, --batch-size INTEGER  Change batch size.  [default: 6]
   -c, --cache-dir PATH      Change cache dir  [default: .cache]
-  -d, --device [cpu|cuda]   Choose device.  [default: cpu]
+  -d, --device [CPU|CUDA]   Choose device.  [default: CPU]
   -o, --output-dir PATH     Change output dir  [default: output]
   --help                    Show this message and exit.
 ```
 
-### translate_text_file:
+### translate langs:
 
 ```bash
-Usage: translate_text_file.py [OPTIONS] FILE_PATH SOURCE_LANG TARGET_LANG
+Usage: translate.py langs [OPTIONS]
+
+  Print all supported languages.
 
 Options:
-  -b, --batch-size INTEGER  Change batch size.  [default: 6]
-  -c, --cache-dir PATH      Change cache dir  [default: .cache]
-  -d, --device [cpu|cuda]   Choose device.  [default: cpu]
-  -o, --output-dir PATH     Change output dir  [default: output]
-  --help                    Show this message and exit.
+  -f, --find TEXT  Find language.
+  --help           Show this message and exit.
 ```
 
-### translate_text_file:
+### translate txt:
+
+### translate text:
 
 ```bash
-Usage: translate_text.py [OPTIONS] SOURCE_LANG TARGET_LANG
+Usage: translate.py text [OPTIONS] SOURCE TARGET
+
+  Translate string.
+
+  SOURCE is the Source Language
+
+  TARGET is the Target Language
 
 Options:
   -c, --cache-dir PATH     Change cache dir  [default: .cache]
-  -d, --device [cpu|cuda]  Choose device.  [default: cpu]
+  -d, --device [CPU|CUDA]  Choose device.  [default: CPU]
   --help                   Show this message and exit.
+```
+
+```bash
+Usage: translate.py txt [OPTIONS] FILENAME SOURCE TARGET
+
+  Translate txt file.
+
+  FILENAME is the path to target file.
+
+  SOURCE is the Source Language
+
+  TARGET is the Target Language
+
+Options:
+  -b, --batch-size INTEGER  Change batch size.  [default: 6]
+  -c, --cache-dir PATH      Change cache dir  [default: .cache]
+  -d, --device [CPU|CUDA]   Choose device.  [default: CPU]
+  -o, --output-dir PATH     Change output dir  [default: output]
+  --help                    Show this message and exit.
 ```
 
 ## License:
